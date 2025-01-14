@@ -1,3 +1,15 @@
+This fork include my work to intergrate Hardcover.app into Calibre-Web/CWA.
+Including a Hardcover Metadata scraper, and read progress syncing with Kobo
+
+Hardcover support is optional, and requires being enable in Setttings and an API key added in user config for each user who would like to use the features.
+
+Metadata:
+Searching supporting title as per CW default.
+Editions of books can be selected by searching "hardcover-id:\<id from title search\>"
+
+Kobo Sync:
+If a shelf is designated for Kobo Sync, adding a book with proper Hardcover metadata (id and edition) will also add the book to the Hardcover "Want to Read" list. Read progress from these books is then synced with Hardcover.
+
 # Calibre-Web Automated _(formerly Calibre-Web Automator)_
 
 ![Calibre-Web Automated](README_images/CWA-banner.png "Calibre-Web Automated")
@@ -7,7 +19,6 @@
 ![Docker Pulls](https://img.shields.io/docker/pulls/crocodilestick/calibre-web-automated)
 ![GitHub Release](https://img.shields.io/github/v/release/crocodilestick/calibre-web-automated)
 ![GitHub commits since latest release](https://img.shields.io/github/commits-since/crocodilestick/calibre-web-automated/latest)
-
 
 ## _Quick Access_
 
@@ -37,18 +48,20 @@ However, when compared to full-fat Calibre, it unfortunately lacks a few core fe
 After discovering that using the DOCKER_MODS universal-calibre environment variable, you could gain access to Calibre's fantastic eBook conversion tools, both in the Web UI and in the container's CLI, I set about designing a similar solution that could really make the most of all of the tools available to try and fill in the gaps in functionality I was facing with Calibre-Web so that I could finally get rid of my bulky Calibre instance for good.
 
 ![Calibre-Web Automated Example Homepage](README_images/CWA-Homepage.png)
+
 <p style="text-align:center;"><i>CWA allows you to keep your ebook library accessible & organised and looks good while doing it</i> 😎🦚</p>
 
 ## **_Features:_**
 
 ### CWA supports all Stock CW Features:
-| | | |
-|     :---:    |     :---:      |     :---:     |
-| Modern & responsive Bootstrap 3 HTML5 interface | Comprehensive user management with per-user permissions | OPDS feed for ereader apps |
-| eBook metadata editing and deletion support | Metadata download from various sources (extensible via plugins) | eBook download restriction to logged-in users |
-| Public user registration support | Send eBooks to E-Readers with a single click | Sync Kobo devices with your Calibre library |
-| In-browser eBook reading support for multiple formats | Content hiding based on categories and Custom Column content per user | "Magic Link" login for easy access on eReaders | 
-| LDAP, Google/GitHub OAuth, and proxy authentication support | Advanced search and filtering options | Multilingual user interface supporting 20+ [languages](https://github.com/janeczku/calibre-web/wiki/Translation-Status) | 
+
+|                                                             |                                                                       |                                                                                                                         |
+| :---------------------------------------------------------: | :-------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------: |
+|       Modern & responsive Bootstrap 3 HTML5 interface       |        Comprehensive user management with per-user permissions        |                                               OPDS feed for ereader apps                                                |
+|         eBook metadata editing and deletion support         |    Metadata download from various sources (extensible via plugins)    |                                      eBook download restriction to logged-in users                                      |
+|              Public user registration support               |             Send eBooks to E-Readers with a single click              |                                       Sync Kobo devices with your Calibre library                                       |
+|    In-browser eBook reading support for multiple formats    | Content hiding based on categories and Custom Column content per user |                                     "Magic Link" login for easy access on eReaders                                      |
+| LDAP, Google/GitHub OAuth, and proxy authentication support |                 Advanced search and filtering options                 | Multilingual user interface supporting 20+ [languages](https://github.com/janeczku/calibre-web/wiki/Translation-Status) |
 
 ### Plus these CWA Specific ones on top:
 
@@ -57,6 +70,7 @@ After discovering that using the DOCKER_MODS universal-calibre environment varia
 - **Automatic Conversion** 🔃 - of newly downloaded books in 28 other formats into `.epub` **for optimal compatibility** with the widest number of eReaders, library homogeneity, and seamless functionality with Calibre-Web's excellent **Send-to-Kindle** Function.
 
 - A **Weighted Conversion Algorithm:** ⚖️
+
   - Using the information provided in the Calibre eBook-converter documentation on which formats convert best into epubs, CWA is able to determine from downloads containing multiple eBook formats, which format will convert most optimally, ignoring the other formats to ensure the **best possible quality** and no **duplicate imports**
 
 - **28 Supported file types for conversion:** 🤯
@@ -87,7 +101,7 @@ After discovering that using the DOCKER_MODS universal-calibre environment varia
       - _In the meantime, users with multiple libraries who don't want to consolidate them are advised to run multiple, parallel instances_
 - **Easy Dark/ Light Mode Switching** ☀️🌙
   - **Switch between Light & Dark Modes in just one click from anywhere in the Web UI!**
-  - Simply click/tap the 🕶️ icon on the  Web UI's navbar and switch between themes at your leisure
+  - Simply click/tap the 🕶️ icon on the Web UI's navbar and switch between themes at your leisure
 - **Internal Update Notification System** 🛎️
   - Users will now be automatically notified of the availability of new updates from within the Web UI
   - Automatically triggered by a difference between the version number of the most recent GitHub release and the version installed
@@ -98,7 +112,7 @@ After discovering that using the DOCKER_MODS universal-calibre environment varia
 - **Auto-Compression of Backed Up Files** 🤐
   - Just before midnight each day, the CWA-Auto-Zipper service will automatically zip together all files processed that day.
   - Minimises disk space usage and helps keep back up files as organised as possible
-  - __Enabled by default but can be disabled in the CWA Settings page in the Admin panel__
+  - **Enabled by default but can be disabled in the CWA Settings page in the Admin panel**
 - **Batch Editing & Deletion!** 🗂️🗄️
   - Say goodbye to clicking that edit button again, and again, and again just to remove or edit a single series!
   - To use, simply navigate to the `Books List`page on the left hand side of the Web UI, select the books you wish to edit/ delete and use the buttons either above the table or within the headers to do whatever you need!
@@ -116,7 +130,6 @@ After discovering that using the DOCKER_MODS universal-calibre environment varia
     - `cover-enforcer --dir <path-to-folder-containing-the-books-epub-here>`
   - Full usage and documentation for all new CLI Commands can be found [here](#the-cover-enforcer-cli-tool)
     ![CWA Database](README_images/cwa-db-diagram.png "CWA 1.2.0 Cover Database Diagram")
-
 
 ## UNDER ACTIVE DEVELOPMENT ⚠️
 
@@ -136,6 +149,7 @@ After discovering that using the DOCKER_MODS universal-calibre environment varia
 - Wider support for `arm64` architectures
 
 #### Lower Priority 🌱
+
 - Improved metadata handling and conversion for comics & manga
 - Also releasing CWA as a Docker Mod
 - **Robo**tic **Read**ing 🤖📖
@@ -165,6 +179,7 @@ docker compose up -d
 And that's you off to the races! 🥳 HOWEVER to avoid potential problems and ensure maximum functionality, we recommend carrying out these [Post-Install Tasks Here](#post-install-tasks).
 
 ---
+
 ## Using Docker Compose 🐋⭐(Recommended)
 
 ### 1. Setup the container using the Docker Compose template below: 🐋📜
@@ -188,19 +203,20 @@ services:
     ports:
       - 8084:8083 # Change the first number to change the port you want to access the Web UI, not the second
     restart: unless-stopped
-    
 ```
+
 ### Explanation of the Container Bindings:
-  - Make sure all 3 of the main bindings are separate directories, errors can occur when binds are made within other binds
-  - `/config` - This is used to store logs and other miscellaneous files that keep CWA running
-    -  **New Users** - Use any empty folder (if you run into any issues, make sure the ownership of said folder isn't `root:root` in your main os)
-    -  **Existing/ CW Users** - Those with existing Calibre-Web setups, map this to your existing `/config` directory containing `app.db` to ensure settings and users are pulled in
-  - `/cwa-book-ingest` - **ATTENTION** ⚠️ - All files within this folder will be **DELETED** after being processed. This folder should only be used to dump new books into for import and automatic conversion
-  - `/calibre-library` - This should be bound to your Calibre library folder where the `metadata.db` & book(s) files reside.
-    - **New Users** - Use any empty folder (if you run into any issues, make sure the ownership of said folder isn't `root:root` in your main os)
-    - **Existing/ CW Users** - If there are multiple libraries in the mounted directory, CWA will automatically find and mount the largest one - check the logs for more details on which `metadata.db` was utilised
+
+- Make sure all 3 of the main bindings are separate directories, errors can occur when binds are made within other binds
+- `/config` - This is used to store logs and other miscellaneous files that keep CWA running
+  - **New Users** - Use any empty folder (if you run into any issues, make sure the ownership of said folder isn't `root:root` in your main os)
+  - **Existing/ CW Users** - Those with existing Calibre-Web setups, map this to your existing `/config` directory containing `app.db` to ensure settings and users are pulled in
+- `/cwa-book-ingest` - **ATTENTION** ⚠️ - All files within this folder will be **DELETED** after being processed. This folder should only be used to dump new books into for import and automatic conversion
+- `/calibre-library` - This should be bound to your Calibre library folder where the `metadata.db` & book(s) files reside.
+  - **New Users** - Use any empty folder (if you run into any issues, make sure the ownership of said folder isn't `root:root` in your main os)
+  - **Existing/ CW Users** - If there are multiple libraries in the mounted directory, CWA will automatically find and mount the largest one - check the logs for more details on which `metadata.db` was utilised
   <!-- - `/books` _(Optional)_ Utilise if you have a separate collection of book files somewhere and want to be able to access within the container. For the majority of users, this is not required and mounting`/calibre-library' is sufficient -->
-  - `/app/calibre-web/gmail.json` _(Optional)_ - This is used to setup Calibre-Web and/or CWA with your gmail account for sending books via email. Follow the guide [here](https://github.com/janeczku/calibre-web/wiki/Setup-Mailserver#gmail) if this is something you're interested in but be warned it can be a very fiddly process, I would personally recommend a simple SMTP Server
+- `/app/calibre-web/gmail.json` _(Optional)_ - This is used to setup Calibre-Web and/or CWA with your gmail account for sending books via email. Follow the guide [here](https://github.com/janeczku/calibre-web/wiki/Setup-Mailserver#gmail) if this is something you're interested in but be warned it can be a very fiddly process, I would personally recommend a simple SMTP Server
 
 And just like that, Calibre-Web Automated should be up and running! **HOWEVER** to avoid potential problems and ensure maximum functionality,we recommend carrying out these [Post-Install Tasks Here](#post-install-tasks).
 
@@ -220,8 +236,10 @@ And just like that, Calibre-Web Automated should be up and running! **HOWEVER** 
 3. Configure your Calibre-Web instance via the admin page, referring to the Basic Configuration and UI Configuration guides
 4. Add books by having them placed in the folder you bound to `cwa-book-ingest` in your Docker Compose
 5. CWA currently requires all books in the library to be in `.epub` format. If your existing library contains any books of different filetypes, navigate to the Admin panel and scroll until you see the "Convert Library to EPUB" option.
-  - A live log page will then be loaded to allow you to monitor the progress of the conversion process.
-  - All files processed during this process, whether successfully converted or not, will be backed up to `/config/processed_books`
+
+- A live log page will then be loaded to allow you to monitor the progress of the conversion process.
+- All files processed during this process, whether successfully converted or not, will be backed up to `/config/processed_books`
+
 6. Drop a book into your ingest folder to check everything is working and enjoy!
 
 ## Default Admin Login:
@@ -282,10 +300,12 @@ options:
 - If all 3 services come back as green and running they are working properly, otherwise there may be problems with your configuration/install
 
 ---
+
 ## For Developers - Building Custom Docker Image
+
 If you want to contribute to this project, you can build a local version with your changes by running `build.sh` in the repository.
 
-The resultant image will then be automatically deployed using the `docker-compose.yml.dev` (make changes as necessary beforehand) in the directory and the `build/` folder will be created, primarily housing the development docker-compose.yml file and its mount points. Add a calibre library here for testing if necessary. 
+The resultant image will then be automatically deployed using the `docker-compose.yml.dev` (make changes as necessary beforehand) in the directory and the `build/` folder will be created, primarily housing the development docker-compose.yml file and its mount points. Add a calibre library here for testing if necessary.
 
 ```bash
 $ chmod +x build.sh

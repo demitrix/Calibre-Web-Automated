@@ -62,8 +62,10 @@ def main():
     try:
         from .kosync import kosync, populate_document_hashes
         populate_document_hashes()
-    except:
-        kosync = None
+    except ImportError as e:
+        # Debugging for xytronix
+        print("KOSync import error:",e)
+        kosync_available = False
     from . import web_server
     init_errorhandler()
 
@@ -76,7 +78,8 @@ def main():
     app.register_blueprint(cwa_check_status)
     app.register_blueprint(cwa_settings)
     app.register_blueprint(cwa_logs)
-    app.register_blueprint(kosync)
+    if kosync_available:
+        app.register_blueprint(kosync)
 
     # Stock CW
     app.register_blueprint(search)

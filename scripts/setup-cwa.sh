@@ -6,14 +6,10 @@ make_dirs () {
     chown -R abc:abc /app/calibre-web-automated/metadata_change_logs
     mkdir /app/calibre-web-automated/metadata_temp
     chown -R abc:abc /app/calibre-web-automated/metadata_temp
-    mkdir -p /cwa-book-ingest
-    if [ $(stat -c '%U:%G' /cwa-book-ingest) != "abc:abc" ]; then
-        chown abc:abc /cwa-book-ingest
-    fi
-    mkdir -p /calibre-library
-    if [ $(stat -c '%U:%G' /calibre-library) != "abc:abc" ]; then
-        chown -R abc:abc /calibre-library
-    fi
+    sudo -S -u abc mkdir -p /cwa-book-ingest
+    chown abc:abc /cwa-book-ingest
+    sudo -S -u abc mkdir -p /calibre-library
+    chown -R abc:abc /calibre-library
 }
 
 # Change ownership & permissions as required

@@ -62,6 +62,7 @@ def main():
     try:
         from .kosync import kosync, populate_document_hashes
         populate_document_hashes()
+        kosync_available = True
     except ImportError as e:
         # Debugging for xytronix
         print("KOSync import error:",e)

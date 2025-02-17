@@ -6,9 +6,9 @@ make_dirs () {
     chown -R abc:abc /app/calibre-web-automated/metadata_change_logs
     mkdir /app/calibre-web-automated/metadata_temp
     chown -R abc:abc /app/calibre-web-automated/metadata_temp
-    mkdir /cwa-book-ingest
+    sudo -S -u abc mkdir /cwa-book-ingest
     chown abc:abc /cwa-book-ingest
-    mkdir /calibre-library
+    sudo -S -u abc mkdir /calibre-library
     chown -R abc:abc /calibre-library
 }
 
